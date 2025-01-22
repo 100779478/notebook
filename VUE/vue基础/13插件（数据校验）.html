@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue组件1---局部组件</title>
+    <script src="http://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div class="root"></div>
+    <script>
+        const mixin = {
+            // created() {
+            //     for (const k in this.$options.rules) {
+            //         let item = this.$options.rules[k]
+            //         this.$watch(k, (v) => {
+            //             const result = item.validate(v)
+            //             if (!result) {
+            //                 console.log(item.message)
+            //             }
+            //         })
+            //     }
+            // },
+        }
+        // const validatorPlugin = {
+        //     install(app, options) {
+
+        //     }
+        // }
+        const validatorPlugin = (app, options) => {
+            app.mixin({
+                created() {
+                    for (const k in this.$options.rules) {
+                        let item = this.$options.rules[k]
+                        this.$watch(k, (v) => {
+                            const result = item.validate(v)
+                            if (!result) {
+                                console.log(item.message)
+                            }
+                        })
+                    }
+                },
+            })
+        }
+        const app = Vue.createApp({
+            data() {
+                return {
+                    name: 'dell',
+                    age: 26
+                }
+            },
+            mixins: [mixin],
+            rules: {
+                age: {
+                    validate: d => d > 25,
+                    message: 'too young'
+                },
+                name: {
+                    validate: d => d.length > 3,
+                    message: '太短'
+                }
+            },
+            template: `
+            <div>
+                name:{{name}},age:{{age}}    
+            </div>
+            `
+        })
+        app.use(validatorPlugin)
+        const vm = app.mount(".root");
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>vue组件1---局部组件</title>
+  <script src="http://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script>
+
+    // 作用域插槽 需要循环展示子组件中的变量，dom节点由父组件定义
+    const app = Vue.createApp({
+
+      // 父组件调用子组件时，通过v-slot与子组件参数绑定，默认由slotProps接收，如果只接收一个参数，则可以直接写传入参数
+
+      template: `
+             <layout v-slot='slotProps'>
+               <div >{{slotProps.item}}</div>
+             </layout>
+             `
+      //  //或者解构单个
+      //  <layout v-slot='{item}'>
+      //    <div >{{item}}</div>
+      //  </layout>
+    });
+
+    app.component('layout', {
+      data() {
+        return {
+          list: [1, 2, 3]
+        }
+      },
+      template: `
+             <div>       
+               <slot v-for='item in list' :item='item'/>  //子组件向父组件传参
+             </div>
+           `
+    });
+
+    const vm = app.mount('#root');
+  </script>
+</body>

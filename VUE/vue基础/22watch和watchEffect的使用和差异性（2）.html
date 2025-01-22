@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue组件1---局部组件</title>
+    <script src="http://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div class="root"></div>
+    <script>
+        // watch 侦听器
+        // watchEffect 侦听器，偏向于effect
+        const app = Vue.createApp({
+            setup(props, context) {
+                const { watch, reactive, ref, toRefs, watchEffect, watchEffecttoRefs } = Vue
+                const obj = reactive({ name: 'xxx', age: 3 })
+                // 具备一定的惰性 lazy
+                // 参数可以拿到原始和当前值
+                // 如果是reactive的数据 watch第一个函数携程箭头函数()=>obj.name
+                // immediate参数可设置是否立即执行watch函数
+                watch(obj, (currentValue, prevValue) => {
+                    console.log(currentValue, prevValue, 6666)
+                }, { immediate: true })
+
+                // 立即执行 没有惰性
+                // 不需要传递你要侦听的内容，自动感知代码依赖，不需要传递很多参数，只要传递一个回调函数
+                // watchEffect不能获取之前的值
+                // watchEffect(() => {
+                //     console.log(2222, obj.name)
+                //     console.log(333, obj)
+                // })
+                // 几秒后不再监听
+                const stop = watchEffect(() => {
+                    console.log(2222, obj.name)
+                    console.log(333, obj)
+                    setTimeout(() => {
+                        stop()
+                    }, 3000);
+                })
+                const { name } = toRefs(obj)
+                return {
+                    name
+                }
+            },
+            template: `
+            <div>
+            <input v-model='name'/>
+            </div>
+            <div>
+                Name is {{name}}
+            </div>
+            `
+        })
+        const vm = app.mount(".root");
+
+    </script>
+</body>
+
+</html>

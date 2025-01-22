@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue组件1---局部组件</title>
+    <script src="http://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div class="root"></div>
+    <script>
+        // ref reactive响应式的引用
+        // 原理。通过proxy对数据进行封装，当数据变化时，触发模板等内容的更新
+        const app = Vue.createApp({
+            setup(props, context) {
+                // proxy,'dell'变成proxy({value:'dell'})这样的一个响应式引用
+                // ref处理基础类型的数据
+                const { ref } = Vue
+                let name = ref('xiaoming')
+                setTimeout(() => {
+                    name.value = 'dell'
+                    console.log(name.value)
+                }, 2000);
+                // reactive处理非基础类型的数据
+                // readonly禁止修改，只读属性
+                const { reactive, readonly, toRefs } = Vue
+                const nameObj = reactive([123])
+                const copyNameObj = readonly(nameObj)
+                setTimeout(() => {
+                    nameObj[0] = 456
+                    copyNameObj[0] = 456
+                }, 2000);
+                return {
+                    name,
+                    nameObj,
+                    copyNameObj
+                }
+                // toRefs包裹对象后里面的属性解构后可变为响应式
+                // toRefs : proxy({name:'dell'})----->{name:proxy({value:'dell'})}
+                // const {name} = toRefs(nameObj)
+            },
+            template: `
+            <div>
+                {{name}}
+                {{nameObj[0]}}
+                {{copyNameObj[0]}}
+            </div>
+            `
+        })
+        const vm = app.mount(".root");
+
+    </script>
+</body>
+
+</html>

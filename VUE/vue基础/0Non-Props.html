@@ -1,0 +1,50 @@
+<!-- Non-prop 属性---父组件向子组件传值，子组件没有接收，vue底层默认将父组件传递过来的属性作为子组件最外层的dom元素的属性 -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue组件1---局部组件</title>
+    <script src="http://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script>
+        // Non-prop 属性
+        const app = Vue.createApp({
+            data() {
+                return {
+                    hello: 'hhihihihi',
+                }
+            },
+            template: `
+                    <div>
+                        <counter :msg="hello" msg1="hello1" />
+                    </div>
+                    `
+        });
+
+        app.component('counter', {
+            // inheritAttrs: false,   //不继承msg="hello"属性
+            // props: ['msg', 'msg1'],
+            mounted() {
+                console.log(this.$attrs);  //在生命周期函数中获取Non-prop 属性
+            },
+            template: `
+                      <div :msg="$attrs.msg">Counter</div>  // 取单个Non-prop 属性
+                      <div v-bind="$attrs">Counter</div>    // 取所有Non-prop 属性      
+                      <div :msg1="$attrs.msg1">Counter</div>
+                    `
+            // template: `
+            //         <div>Counter</div> 
+            //         <div>Counter</div>   
+            //         <div>Counter</div>
+            //         `
+        });
+
+        const vm = app.mount('#root');
+    </script>
+</body>

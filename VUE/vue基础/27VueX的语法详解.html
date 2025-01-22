@@ -1,0 +1,30 @@
+<!-- 
+VueX数据管理框架
+VueX创建了一个全局唯一的仓库，用来存放全局的数据
+state中存放的就是全局的数据
+
+state：{
+存放全局数据任何组件度可以用
+其他页面组件想要用 使用$store.state.name
+}
+
+修改数据：
+1 调用一个 dispatch 方法，派发一个 action，名字叫做change
+2 感知到 change 这个 action，执行 store 中 actions 下面的 change 方法
+3 提交 commit 一个叫做 change 的数据改变
+4 mutation 感知到提交的change改变，执行 change 方法数据改变
+
+  “”“”“”“”“this.$store.commit('change') //没有异步操作直接发送commit提交给mutations:”“”“”“”“”“”
+
+执行流程：
+// 异步
+dispatch==>actions==>commit==>mutations===>state
+// 同步
+commit==>mutations===>state
+
+mutations里只能写同步代码 如果想写异步代码需要在actions里写
+
+
+mutations中的函数的第一个参数是state
+actions中的函数的第一个参数是store
+-->

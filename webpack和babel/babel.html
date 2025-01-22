@@ -1,0 +1,21 @@
+<!-- ①在package.json文件中添加执行babel的命令"scripts": {"build": "babel src -d lib" } 注：可将原来的test命令删掉，这个只是做测试用
+"build": "babel src -d lib" 命令意思：从src目录输出到lib目录（将src中使用ES6语法的js文件输出为老版本的语法文件），此处src和lib都是可以灵活命名的
+
+②编译的命令：npm run build
+
+
+③Babel的配置文件：
+安装preset-env包：npm install @babel/preset-env --save-dev
+注：@babel/preset-env后面是可以添加@版本号的，比如我们学习时为了和老师的效果一致，可以输入npm install @babel/preset-env@7.11.0 --save-dev
+
+配置文件：在src文件夹中创建.babelIrc文件，并添加语句 { "presets": ["@babel/preset-env"] }
+注：现在文件名已经变成了babel.config.json，见babel官网
+
+④删掉原先的dist目录，再次运行npm run build，Babel会再次自动在项目目录下生成dist文件夹，里面包含转换好的babel.js文件
+注：这里只能转换语法层面，像ES6的API这些无法转换，得在后面配合webpack才能完全转换
+【以上三个包的作用】
+"@babel/cli"：在命令行工具中执行babel命令
+"@babel/core"：核心包，负责发号施令、调度
+"@babel/preset-env"：告诉babel具体该如何转换ES6语法
+
+！！！特别注意：项目文件夹命名一定要规范！要符合JS标识符命名规则，用英文，不要出现_$以外的特殊符号，否则执行时会报错！ -->

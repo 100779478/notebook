@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue组件1---局部组件</title>
+    <script src="http://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div class="root"></div>
+    <script>
+        // const app = Vue.createApp({
+        //     setup(props, context) {
+        //         const { provide, ref, readonly } = Vue
+        //         const name = ref('dell')
+        //         // 避免后者不知道修改数值只能在父组件修改
+        //         provide('name', readonly(name))
+        //         provide('changeName', (val) => {
+        //             console.log(val)
+        //             return name.value = val
+        //         })
+        //     },
+        //     template: `
+        //          <child/>
+        //     `
+        // })
+        // app.component('child', {
+        //     setup(props) {
+        //         const { inject } = Vue
+        //         const name = inject('name')
+        //         const changeName = inject('changeName')
+        //         const handleClick = () => {
+        //             changeName('leet')
+        //             // name.value = '222'
+        //         }
+        //         return {
+        //             name, handleClick
+        //         }
+        //     },
+        //     template: `
+        //     <div>{{name}}</div>
+        //     <button @click='handleClick'>点击</button>
+        //     `
+        // })
+        // Ref语法
+        // 两个ref一个是响应式的引用 一个是获取标签dom节点
+        const app = Vue.createApp({
+            setup(props, context) {
+                const { ref, onMounted } = Vue
+                const hello = ref(null)
+                onMounted(() => {
+                    console.log(hello.value)
+                })
+                return { hello }
+            },
+            template: `
+            <div ref='hello'>123321</div>
+            `
+        })
+        const vm = app.mount(".root");
+    </script>
+</body>
+
+</html>

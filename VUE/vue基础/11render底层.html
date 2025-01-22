@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue组件1---局部组件</title>
+    <script src="http://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div class="root"></div>
+    <script>
+        // template -- render -- 虚拟DOM -- 真实DOM -- 展示到页面
+
+        // template 在底层被编译时会生成render函数
+
+        // render函数会调用vue的 h(标签名，{ 属性 }，标签文本内容)方法，h方法返回一个内容，内容就是虚拟dom----实际上是用js对象描述dom节点
+
+        // 最后vue再将虚拟dom 映射成真实dom
+        const app = Vue.createApp({
+            template: `
+              <my-title :level='1'>
+                hello
+              </my-title>
+            `
+        })
+        app.component('my-title', {
+            props: ['level'],
+            render() {
+                const { h } = Vue
+                // 虚拟dom--{ tagName:"div",text:hello,attributes:{ } }
+                // return h('h' + this.level, { name: 123 }, ['hello world','111',' 32'])
+                // return h('h' + this.level, { name: 123 }, this.$slots.default())
+                return h('h' + this.level, { name: 123 }, [this.$slots.default(), '123', h('h6', {}, 'dell'), h('h4', {}, 'acky')])
+            },
+        })
+        const vm = app.mount(".root");
+
+    </script>
+</body>
+
+</html>

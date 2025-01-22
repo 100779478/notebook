@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue组件1---局部组件</title>
+    <script src="http://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div class="root"></div>
+    <script>
+        // 单向数据传值
+
+        // 父多个数据传给子
+
+        // ：a ='a',b='b',c='c' 第一种方法
+
+        // 可以定义一个对象，把数据放在对象里面，
+
+        // 父通过v-bind='params'传给子 :content='params.content'
+
+        // 属性传的时候 使用content-abc 接的时候使用ABC
+
+        // 大小写传参 
+
+        // //单项数据流的概念，父组件传的值子只能读不能改 
+
+        // 子组件改父组件的值，定义一个data 存父数据等于父传过来的值复制一份给自己再修改
+        const HelloWorld = {
+            data() {
+                return {
+                    count: 0
+                }
+            },
+            template: `  <span @click="count+=1">{{count}}</span>   `
+        }
+        const app = Vue.createApp({
+
+            components: {
+                HelloWorld
+            },
+            methods: {
+
+            },
+            template: `
+                <hello-world/>
+                这里即便出现- 也能识别出驼峰形式变量HelloWorld
+            `
+        })
+
+        const vm = app.mount(".root");
+
+    </script>
+</body>
+
+</html>

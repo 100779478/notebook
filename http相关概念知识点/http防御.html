@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 1.XSS攻击 （跨站脚本攻击）
+            // ·反射型
+            // ·存储型
+        // ① 防御方式：1.自己定义转义和反转义方法 
+        //            比如<script> ==> &lt;script&gt; 
+
+        // HTTP X-XSS-Protection响应头是Internet Explore
+        // 当检测到跨站脚本攻击（XSS）时，浏览器讲停止加载页面
+            // 0：禁止XSS过滤
+            // 1：启用XSS过滤
+        // ② 前端转义库‘js-xss’
+        // ③ 后端转义
+
+        // 2.CSRF攻击 （跨站请求伪造）
+            //用户登陆后后，获取token伪造链接，进行服务端请求
+            // 防御方式：
+            // 1.检查http Referer字段
+            //  后台通过这个字段判断请求是否合法
+            // 2.添加校验token
+            // 3.使用验证码
+        // XSS和CSRF区别
+        // XSS利用用户对站点的信任
+        // 利用站点对已经身份认证的信任
+    </script>
+</body>
+</html>

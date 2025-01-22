@@ -1,0 +1,59 @@
+<!-- Non-prop 属性---父组件向子组件传值，子组件没有接收，vue底层默认将父组件传递过来的属性作为子组件最外层的dom元素的属性 -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue组件1---局部组件</title>
+    <script src="http://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script>
+        // Non-prop 属性
+        const app = Vue.createApp({
+            data() {
+                return {
+                    count: 1
+                }
+            },
+            methods: {
+                handleAdd(val) {
+                    this.count += val
+                }
+            },
+            template: `
+                    <div>
+                        <counter @add='handleAdd' :count="count" />
+                    </div>
+                    `
+        });
+
+        app.component('counter', {
+            props: ['count'],
+            // emits: ['add'], // emits可以为数组或者对象
+            emits: {
+                add: (count) => {
+                    if (count > 0) {
+                        return true;
+                    }
+                    return false
+                }
+            },
+            methods: {
+                addCount() {
+                    this.$emit('add', 2, 5)
+                    // this.$emit('add', this.count+3)
+                }
+            },
+            template: `
+                    <div @click='addCount'>{{count}}</div>
+                    `
+        });
+
+        const vm = app.mount('#root');
+    </script>
+</body>

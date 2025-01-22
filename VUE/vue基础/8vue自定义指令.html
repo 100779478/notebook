@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>vue组件1---mixin</title>
+  <script src="http://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script>
+    // 自定义指令 directive
+
+    // 局部指令
+    // const directives = {
+    //   focus: {
+    //     mounted(el) {
+    //       console.log(33333, el)
+    //       el.focus()
+    //     },
+    //   }
+    // }
+    const app = Vue.createApp({
+      // 局部指令
+      // directives: directives,
+      mounted() {
+        this.$refs.input.focus()
+      },
+      template: `
+                 <div>
+                    <input v-focus/>
+                    <button v-focus/>
+                    <input ref='input'/>
+                 </div>
+           `
+    });
+    // 全局指令
+    app.directive('focus', {
+      beforeMount(el) {
+        console.log(el, 'beforeMount')
+      },
+      mounted(el) {
+        console.log(el)
+        el.focus()
+      },
+    })
+    const vm = app.mount('#root');
+  </script>
+</body>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- 
+<script>
+  // mixin 混入
+ 
+  // 自定义的属性，组件中的属性优先级高于 mixin 属性的优先级
+  const myMixin = {
+    number: 1
+  }
+  const app = Vue.createApp({
+    mixins: [myMixin],
+    // 自定义属性
+    number: 2,
+    // 在模板中不能直接使用自定义的属性
+    // $options包含组件所有属性
+    template: `
+      <div>
+        <div>{{this.$options.number}}</div>
+      </div>
+    `
+  });
+
+
+  //修改属性的优先级
+  app.config.optionMergeStrategies.number = (mixinVal, appValue) => {
+    // 表示如果有mixin，则优先使用mixin
+    return mixinVal || appValue;
+  }
+  const vm = app.mount('#root');
+</script> -->
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>vue组件1---mixin</title>
+  <script src="http://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script>
+    // 组件内的data、methods优先级高于mixins
+    // 生命周期函数先执行mixin里面的，在执行组件内部的
+    // 
+    const myMixin = {
+      data() {
+        return {
+          number: 2,
+          count: 1,
+        }
+      },
+      created() {
+        console.log('mixins created')
+      },
+      methods: {
+        handleClick() {
+          console.log('mixins handleClick')
+        }
+      },
+    }
+    const app = Vue.createApp({
+      data() {
+        return {
+          number: 1
+        }
+      },
+      mixins: [myMixin],
+      created() {
+        console.log('created')
+      },
+      methods: {
+        handleClick() {
+          console.log('handleClick')
+        },
+      },
+      template: `
+                 <div>
+                  {{number}}
+                  {{count}}
+                  <button @click='handleClick'>按钮</button>
+                  <child :count='count'/>
+                 </div>
+           `
+    });
+    //     app.component('child', {
+    //       props: ['count'],
+    //       template: `
+    //           <div>
+    //             {{count}}++++
+    //             </div>
+    // `
+    //     })
+    app.component('child', {
+      mixins: [myMixin],
+      template: `
+          <div>
+            {{count}}++++
+            </div>
+`
+    })
+    const vm = app.mount('#root');
+  </script>
+</body>

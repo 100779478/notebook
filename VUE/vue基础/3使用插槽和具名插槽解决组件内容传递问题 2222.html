@@ -1,0 +1,99 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue组件1---局部组件</title>
+    <script src="http://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script>
+        // 父模板里调用的数据属性，使用的都是父模板里的数据
+        // 子模板里调用的数据属性，使用的都是子模板里的数据
+        const app = Vue.createApp({
+            data() {
+                return {
+                    text: '提交'
+                }
+            },
+            template: `
+                <layout>  
+                    <template v-slot:head>
+                        <div>11111</div>
+                    </template>
+                    <template v-slot:foot>
+                        <div >11122222</div>
+                    </template>
+                </layout>  
+                
+            `
+        });
+        app.component('layout', {
+            template: `
+                        <div>
+                                <slot name='head'>
+                                </slot>
+                                <div>content</div>
+                                <slot name='foot'>
+                                    default value
+                                </slot>
+                        </div>
+                     `
+        });
+        const vm = app.mount('#root');
+    </script>
+</body> -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue组件1---局部组件</title>
+    <script src="http://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script>
+        // 父模板里调用的数据属性，使用的都是父模板里的数据
+        // 子模板里调用的数据属性，使用的都是子模板里的数据
+        const app = Vue.createApp({
+            data() {
+                return {
+                    text: '提交'
+                }
+            },
+            template: `
+                <layout>  
+                    <template v-slot:txt>
+                        <div v-slot:txt>11</div>
+                    </template>
+                     <template #txt>
+                        <div>{{text}}</div>
+                    </template>
+                    <div>{{text}}</div>
+                </layout>  
+                
+            `
+        });
+        app.component('layout', {
+            template: `
+                        <div>
+                                <slot name='txt'> 
+                                </slot>
+                                <slot>
+                                    default value
+                                </slot>
+                        </div>
+                     `
+        });
+        const vm = app.mount('#root');
+    </script>
+</body>

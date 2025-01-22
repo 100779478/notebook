@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        twoSum = function (nums, target) {
+            const n = nums.length;
+            const map = new Map();
+            for (let i = 0; i < nums.length; i++) {
+                console.log(nums[i],i)
+                map.set(nums[i], i)
+            }
+            console.log(map.get(11))
+            // for (let i = 0; i < n; i++) {
+            //     const complement = target - nums[i];
+            //     if (map.has(complement)) {
+            //         return [map.get(complement), i];
+            //     }
+            //     // map.set(nums[i], i);
+            // }
+            // return null;
+        };
+        // twoSum = function (nums, target) {
+        //     for (let i = 0, len = nums.length; i < len; i++) {
+        //         // 因为同一元素不允许重复出现，所以从i的下一位开始遍历
+        //         for (let j = i + 1; j < len; j++) {
+        //             console.log(i, j)
+        //             if (nums[i] + nums[j] === target) {
+        //                 return [i, j];
+        //             }
+        //         }
+        //     }
+        //     // 所有样例都是有返回结果的，这里无所谓
+        //     return [-1, -1];
+        // };
+        // twoSum = function (nums, target) {
+        //     const n = nums.length;
+        //     const map = new Map();
+        //     for (let i = 0; i < n; i++) {
+        //         const complement = target - nums[i];
+        //         console.log(map.has(complement),2222)
+        //         if (map.has(complement)) {
+        //             console.log(map.get(complement),3333)
+        //             return [map.get(complement), i];
+        //         }
+        //         map.set(nums[i], i);
+        //     }
+        //     return null;
+        // }
+        twoSum([2, 11, 7, 11, 15], 9)
+        // console.log(twoSum([2, 11,7, 11, 15], 9))
+        // console.log(twoSum([3, 2, 4], 6))
+        // console.log(twoSum([3, 3], 6))
+    </script>
+</body>
+
+</html>

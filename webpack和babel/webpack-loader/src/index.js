@@ -1,4 +1,4 @@
-import text from '../src/text.txt';
+import text from './text.txt';
 
 console.log(text)
 const a = 1

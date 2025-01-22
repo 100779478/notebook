@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const arr = [1, 1, 13, 4, 2, 5, 1, 145, 1, 22, 42]
+        for (let i = 1; i < arr.length; i++) {
+            for (let j = arr.length - 1; j >= i; j--) {
+                if (arr[j] > arr[j - 1]) {
+                    let temp = arr[j]
+                    arr[j] = arr[j - 1]
+                    arr[j - 1] = temp
+                }
+            }
+        }
+        console.log(arr)
+        //=============================================================================================================================
+        // const arr = [1, 13, 4, 2, 5, 1, 145, 22, 42]
+        // for (let i = 0; i < arr.length; i++) {
+        //     for (let j = 0; j < arr.length - i - 1; j++) {
+        //         if (arr[j] > arr[j + 1]) {
+        //             let temp = arr[j]
+        //             arr[j] = arr[j + 1]
+        //             arr[j + 1] = temp
+        //         }
+        //     }
+        // }
+        // console.log(arr)
+        //=============================================================================================================================
+        // var arr = [2, 4, 1, 1, 6, 7, 8, 33, 11, 77, 88, 99, 3, 100];
+        // function sort(array) {
+        //     //使用双循环去遍历数组，第一个循环取 array 的一个数据，第二个循环拿上个循环数据的后面一个数据，两个数据进行比较。
+        //     for (var i = 0; i < array.length; i++) {
+        //         for (var u = i + 1; u < array.length; u++) {
+        //             if (array[i] > array[u]) {
+        //                 //如果 array[i] > <array[u] ，就声明一个缓存遍历 num 存放大的数据，然后把两个数据的下标进行更换，达到升序排序的效果。
+        //                 var num = array[i];
+        //                 array[i] = array[u];
+        //                 array[u] = num;
+        //             }
+        //         }
+        //     }
+        //     //return 根据需要可写可不写。
+        //     return array;
+        // }
+        // console.log(sort(arr));
+        //=============================================================================================================================
+    </script>
+</body>
+
+</html>

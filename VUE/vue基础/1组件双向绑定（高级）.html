@@ -1,0 +1,55 @@
+<!-- Non-prop 属性---父组件向子组件传值，子组件没有接收，vue底层默认将父组件传递过来的属性作为子组件最外层的dom元素的属性 -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue组件1---局部组件</title>
+    <script src="http://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return { count: 'a', count1: 3 }
+            },
+
+            template: `
+            <counter v-model.test111="count" mg="12" v-model:add='count'/>  
+            `
+            //通过v-model实现数据与子组件视图层的绑定,v-model.xxx可以通过modelModifiers传递参数
+        });
+        app.component('counter', {
+            // props: ['modelValue'], //modelValue是默认固定写法，也可以自定义
+            props: {
+                "modelValue": String,
+                modelModifiers: {
+                    // （）默认返回空对象 如果传了.test111则加入这个属性
+                    default: () => ({})
+                }
+            },
+            mounted() {
+                console.log(this.modelModifiers, this.$attrs)
+            },
+            methods: {
+                handleClick() {
+                    let newValue = this.modelValue + 'c'
+                    if (this.modelModifiers.test111) {
+                        newValue = newValue.toUpperCase()
+                    }
+                    //update:modelValue  也是固定写法
+                    this.$emit('update:modelValue', newValue);  //要修改父组件的属性，通过emit在子组件内部向外触发事件，同时支持传递多个参数
+                    this.$emit('update:add', newValue); 
+                },
+            },
+            template: `
+            <div @click="handleClick">{{modelValue}}</div>
+          `
+        });
+        const vm = app.mount('#root');
+    </script>
+</body>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue组件1---局部组件</title>
+    <script src="http://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div class="root"></div>
+    <script>
+        const inputValueEffect = () => {
+            const { ref } = Vue
+            const inputValue = ref('')
+            const clearInputValue = function () {
+                inputValue.value = ''
+            }
+            return { inputValue, clearInputValue }
+        }
+        const listRelativeEffect = () => {
+            const { reactive } = Vue
+            const list = reactive([])
+            const handleClick = function (item) {
+                list.push(item)
+            }
+            return {
+                list, handleClick
+            }
+        }
+        const app = Vue.createApp({
+            setup(props, context) {
+                const { list, handleClick } = listRelativeEffect()
+                const { inputValue, clearInputValue } = inputValueEffect()
+                return {
+                    inputValue, list, handleClick, clearInputValue
+                }
+            },
+            // <input v-model='inputValue' @input='handleChange'/>
+            template: `
+            <input v-model='inputValue'/>
+            <button @click='()=>{
+                handleClick(inputValue)
+                clearInputValue();
+            }'>提交</button>
+            <ul v-for='item in list'>
+              <li>{{item}}</li>
+            </ul>
+            `
+        })
+        const vm = app.mount(".root");
+
+    </script>
+</body>
+
+</html>

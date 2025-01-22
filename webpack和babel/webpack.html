@@ -1,0 +1,73 @@
+<!-- Babel 与 Webpack
+6-4 【复习速查】本周知识清单
+静态模块打包器
+将代码按照功能分割成不同的模块，然后按模块开发；开发完成后，再用module关联各个模块，形成一个完整的项目。
+
+将script标签的type属性，设置成module，可以加载模块。
+例1： 引入外部文件 <script src="模块路径" type="module"></script>
+例2： 直接在script标签里书写代码 <script> type="module">// 模块代码</script>
+module的导入导出	import	关键字，用来导入模块内的内容：
+1、使用export default和export 导出的内容可以使用import关键字导入
+2、一个模块没有导出，也可以将其导入；此时被导入的代码都会执行一遍，也仅会执行一遍
+3、如果一个模块中，既有export default导出默认值，又有export导出其他值，可以使用import同时导入。导入时，使用export default导出的变量要写在使用export导出的变量的前面
+4、import关键字具有提升效果。它导入的内容，会提升到整个模块顶部，率先执行。
+export default	导出默认值：
+一个模块只能有一个export default；
+导入时语法是：import 变量名 from "路径"
+export	导出多个内容；
+一个模块可以有多个export；
+导入时语法是：import {变量名} from "路径"
+as	给模块起别名；
+导出时，可以起别名；语法：export {变量名 as 别名}
+导入时，也可以起别名；语法：import {变量名 as 别名} from "路径"
+*	整体导入；
+语法：import * as 别名 from "路径"
+
+
+module的注意事项	this	模块顶层作用域中的this指向undefined
+import()	import方法，它与关键字import不一样，它可以按条件导入（了解即可）
+
+
+指令相关	Node.js	Node.js是一个平台或工具，它上面可以运行后端代码。Babel等依赖包，需要运行在这个平台上。
+npm	node包管理工具。可以利用npm初始化项目、安装项目所需要的插件（依赖包）
+node -v	查看node的版本号
+npm -v	查看npm的版本号
+npm init	初始化项目
+npm install	安装依赖包。
+1、执行npm install，可以把package.json中记录的依赖包，都下载下来
+2、可以使用该指令下载某个具体的依赖包。指令如下：
+npm install 包名
+--save-dev	安装的包是开发依赖，该包仅在开发阶段使用
+npm config set registry https://registry.npm.taobao.org	将下载源切换成国内的。
+使用npm下载时，包源在国外，下载速度可能会很慢。可以使用该指令，可以将包源切换成国内的，这样可以提升下载速度。
+该指令只需执行一遍。
+
+
+Babel相关	Babel	js编译器。可以将新版本的js代码，比如es6，编译成大多数浏览器都支持的旧版本的js代码，可以解决es6的兼容性问题；
+npm run build	执行编译（build）命令。
+build命令是在package.json文件中的script属性里设置的，具体内容是：babel src -d dist。含义是：编译src目录下的文件，将其输出到dist目录下。
+执行npm run build后，实际执行的是babel src -d dist。
+.babelrc	文件名，用来配置babel
+@babel/preset-env	babel依赖包，用来配置babel将代码编译成什么样子
+@babel/cli	babel依赖包。如果想在命令行工具中执行babel相关命令，需要安装该包
+@babel/core	babel核心功能包。调度、指挥各个依赖包，让各个包协同工作，完成编译功能
+
+
+webpack相关	webpack	静态模块打包器，它会将所有模块打包成一个或多个文件；
+webpack可以处理存在于本地的js、css、图片、图标字体等静态资源
+webpack功能的核心包名字是webpack，课程中使用的版本是4.44.1
+webpack-cli	webpack依赖包。在命令行工具中执行webpack命令时，需要安装该包。 课程中使用的版本是3.3.12
+entry	设置webpack打包时的入口文件
+output	设置打包后的页面输出到哪里
+loader	加载器。webpack本身只能处理js文件，它需要借助其他loader才能处理css、图片等非JS文件
+babel-loader	如果想在webpack使用babel，需要安装该依赖。它在webapck与babel之间，起到桥梁的作用。
+core-js	babel的垫片，帮助babel处理ES6新增的api，比如Set、Map、Promise等。课程中的版本是3.6.5
+plugins	插件，可以帮助webapack执行范围更广的任务
+html-webpack-plugin	该插件可以将打包后的js文件，嵌入到html文件中，并将合成后的html文件输出到最终的打包目录中。课程中的版本是4.3.0
+css-loader	webpack需要借助css-loader，才能解析在js中导入的css文件。课程中的版本是4.1.1
+style-loader	借助css-loader，weback虽然能够解析识别在js中导入的css文件，但是却无法把解析出来的css文件与html页面相关联，导致样式无法生效。借助style-loader可以把解析出来的css文件，以内联的方法，嵌入到html页面中
+mini-css-extract-plugin	该插件可以将js中导入的css文件，提取成一个独立的css文件，并引入到html页面中。
+file-loader	借助file-loader可以让webpack能够处理css文件、js文件中引入的本地图片。
+html-withimg-loader	借助html-withimg-loader，webpack可以解析识别html文件中引入的本地图片。
+url-loader	webpack可以借助该loader处理js、css中的图片，它需要配合file-loader一起使用。在file-loader功能的基础上，增加了一些其他的功能。通过添加配置项，可以进行压缩图片等操作。
+webpack-dev-server	它可以搭建开发环境；代码修改保存后，会自动完成打包的功能。 -->

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue组件1---局部组件</title>
+    <script src="http://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script>
+        // 父模板里调用的数据属性，使用的都是父模板里的数据
+        // 子模板里调用的数据属性，使用的都是子模板里的数据
+        const app = Vue.createApp({
+            data() {
+                return {
+                    text: '提交'
+                }
+            },
+
+            template: `
+                <form-list>  
+                     <div>div点击</div>
+                </form-list>  
+                <form-list>  
+                     <button>{{text}}</button>
+                </form-list>  
+                 <form-list>  
+                     <test></test>
+                     <test></test>
+                     <test></test>
+                     <test></test>
+                </form-list>  
+            `
+        });
+        app.component('formList', {
+            data() {
+                return {
+                    text: ''
+                }
+            },
+            methods: {
+                handleClick() {
+                    console.log(22220)
+                }
+            },
+            template: `
+                        <div>
+                            <input v-model='text'/>
+                            <span @click='handleClick'>
+                                <slot></slot>
+                            </span>
+                        </div>
+                     `
+        });
+        app.component('test', {
+            template: `
+                        <div>
+                         test
+                        </div>
+                     `
+        });
+        const vm = app.mount('#root');
+    </script>form
+</body>

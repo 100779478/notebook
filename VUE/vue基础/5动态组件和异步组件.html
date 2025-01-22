@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>vue组件1---动态组件和异步组件</title>
+  <script src="http://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script>
+    // 动态组件：根据数据的变化，结合component这个标签，来随时动态切换组件的显示
+    // 异步组件：是异步执行某些组件的逻辑，这叫做异步组件
+    // const AsyncCommonItem = Vue.defineAsyncComponent(() => {
+    //   return new Promise(() => { })
+    // })
+    const app = Vue.createApp({
+      data() {
+        return {
+          currentItem: 'inputItem'
+        }
+      },
+      watch: {
+        currentItem(pre, cur) {
+          console.log(pre, cur, 2222)
+        }
+      },
+      methods: {
+        handleClick() {
+          // if (this.currentItem === 'inputItem') {
+          //   this.currentItem = 'commonItem'
+          // } else {
+          //   this.currentItem = 'inputItem'`
+          // }
+          this.currentItem === 'inputItem' ? this.currentItem = 'commonItem' : this.currentItem = 'inputItem'
+        },
+      },
+      mounted() {
+        this.$refs.say.sayHello()
+      },
+      template: `
+          <keep-alive>
+            <component :is='currentItem' ref='say'/>
+          </keep-alive>
+          <async-common-item/>
+          <button @click='handleClick'>切换</button>
+           `
+      // 可替换为
+      //      template: `
+      // <component :is='currentItem'/>
+      //     <input-item v-show="currentItem==='inputItem'"/>
+      //     <common-item v-show="currentItem==='commonItem'"/>
+      //     <button @click='handleClick'>切换</button>
+      //      `
+    });
+
+    app.component('inputItem', {
+      data() {
+        return {
+        }
+      },
+      mounted() {
+        console.log(this.$refs.count)
+      },
+      methods: {
+        sayHello() {
+          console.log('say say hello world')
+        }
+      },
+      template: `
+             <div ref='count'>       
+                <input />
+             </div>
+           `
+    });
+    app.component('commonItem', {
+      data() {
+        return {
+        }
+      },
+      template: `
+             <div>       
+                Hello World
+              </div>
+           `
+    });
+    // app.component('async-common-item', AsyncCommonItem)
+    app.component('async-common-item', Vue.defineAsyncComponent(() => {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve({
+            template: `
+            <div>this is an async component</div>
+            `
+          })
+        }, 3000);
+      })
+    }))
+    const vm = app.mount('#root');
+  </script>
+</body>

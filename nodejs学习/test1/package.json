@@ -1,0 +1,19 @@
+{
+  "name": "index",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon --inspect=9229 index.js"
+  },
+  "author": "acky",
+  "license": "ISC",
+  "dependencies": {
+    "@vue/cli": "^5.0.8",
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}

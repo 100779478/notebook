@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue组件1---局部组件</title>
+    <script src="http://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div class="root"></div>
+    <script>
+        // toRef
+        const app = Vue.createApp({
+            setup(props, context) {
+                const { reactive, toRefs, toRef } = Vue
+                const data = reactive({ name: 'dell' })
+                const { name } = toRefs(data)
+                // 尝试从data中取data属性，如果为空则默认设置一个age属性
+                const age = toRef(data, 'age')
+                setTimeout(() => {
+                    name.value = 'alice'
+                    age.value = '123'
+                }, 2000);
+                return {
+                    data
+                }
+            },
+            template: `
+            <div>
+                {{data.name}}
+                {{data.age}}
+            </div>
+            `
+        })
+        const vm = app.mount(".root");
+
+    </script>
+</body>
+
+</html>

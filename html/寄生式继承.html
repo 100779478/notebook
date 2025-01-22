@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const obj = {
+            a: 2
+        };
+
+        function object(o) {
+            let p = Object.create(o)
+            // 补充方法
+            p.say = function () {
+                console.log('睡觉呢', this.a)
+            }
+            return p
+        }
+
+        const f = object(obj);
+        f.say()
+    </script>
+</body>
+
+</html>

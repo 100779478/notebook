@@ -1,0 +1,14 @@
+{
+  "name": "node-demo",
+  "version": "1.0.0",
+  "description": "node+koa2测试",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "acky",
+  "license": "ISC",
+  "dependencies": {
+    "koa": "^2.15.3"
+  }
+}

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue组件1---局部组件</title>
+    <script src="http://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+    <div class="root"></div>
+    <script>
+        const app = Vue.createApp({
+            setup(props, context) {
+                // 引入composition的api：computed方法
+                const { ref, computed } = Vue
+                const count = ref(0)
+                const addCount = () => {
+                    count.value += 1
+                }
+                // 共享
+                const computedValue = computed(() => {
+                    return count.value + 5
+                })
+                let plusOne = computed({
+                    get: (param) => {
+                        console.log(4444, param)
+                       return count.value + 1
+                    },  // 这里plusOne.value == 2，但count.value还是1
+                    set: (val) => {
+                        console.log(val)
+                        count.value = count.value - val   // 1-1=0
+                    }
+                })
+                // 直接修改调用set
+                setTimeout(() => {
+                    plusOne.value = 100
+                }, 2000);
+                return {
+                    count,
+                    computedValue,
+                    plusOne,
+                    addCount,
+                }
+            },
+            template: `
+            <div @click='addCount'>{{count}}--{{computedValue}}</div>
+            <span>{{plusOne}}</span>
+            `
+        })
+        const vm = app.mount(".root");
+
+    </script>
+</body>
+
+</html>

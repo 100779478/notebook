@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /*  一套样式很难适应各种大小的屏幕
+
+            针对噶中大小的屏幕写样式，让我们的页面在不同大小的屏幕上都能正常显示
+
+            下面样式的解释 ：是屏幕设备并且屏幕宽度>=320px(断点Breakpoint) */
+
+
+        /* all(所有设备,包括后面三个 默认值） / screen(屏幕设备)/ print(打印设备) /speech(屏幕阅读器，一般供残障人士使用)
+
+                常用：all    screen
+
+                写all的时候可以省略把 all 和 and都省略 */
+        /* 与(and) / 或(,) /非(not) */
+
+        /* width  / max-width / min-width
+
+        -webkit-device-pixel-ratio  (dpr 设备像素比）  -webkit(设备兼容性
+
+        -webkit-max-device-pixel-ratio
+
+        -webkit-min-pixel-ratio
+
+        orientation(屏幕方向):landscape (水平方向)/ portrait(垂直方向）
+
+        像素比<=2并且水平方向时显示 */
+
+        /*   获取dpr  window.devicePixelRatio; */
+        @media screen and (min-width:320px) {
+            body {
+                background-color: red;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+</body>
+
+</html>
