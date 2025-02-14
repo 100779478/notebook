@@ -1893,10 +1893,6 @@ app.mount('#app')
       /* 使用storeToRefs转换countStore，随后解构 */
       const {sum} = storeToRefs(countStore)
     </script>
-  
-  ```
-  
-  ```
 
 ### 5.6.【getters】
 

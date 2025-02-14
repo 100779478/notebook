@@ -1,4 +1,4 @@
-import { serialize, addURLData, isSendData } from '../html/utils'
+import { serialize, addURLData, isSendData } from '../http相关概念知识点/html/utils'
 const obj = {
     a: 222
 }
