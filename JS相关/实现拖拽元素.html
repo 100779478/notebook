@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>拖动示例</title>
+    <style type="text/css">
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .draggable {
+            width: 100px;
+            height: 100px;
+            background-color: #3498db;
+            color: #fff;
+            text-align: center;
+            line-height: 100px;
+            cursor: grab;
+            user-select: none;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+<div class="draggable" id="draggableElement">拖动我</div>
+
+<script>
+    // 获取拖动元素
+    const dragElement = document.getElementById('draggableElement')
+    // 定义偏移量和拖动状态
+    let offSetX, offSetY
+    let isDrag = false
+    // 鼠标按下的时候出发操作
+    // 监听当前拖拽div的事件
+    dragElement.addEventListener('mousedown', event => {
+        // 修改拖动状态
+        isDrag = true
+        offSetX = event.clientX - dragElement.getBoundingClientRect().left
+        offSetY = event.clientY - dragElement.getBoundingClientRect().top
+        dragElement.style.cursor = 'grabbing'
+    })
+    // 鼠标进入的操作
+    // 这里需要监听全局document的事件，不然鼠标移除的时候会丢失目标
+    document.addEventListener('mousemove', event => {
+        if (isDrag) {
+            const newX = event.clientX - offSetX
+            const newY = event.clientY - offSetY
+            dragElement.style.left = newX + 'px'
+            dragElement.style.top = newY + 'px'
+        }
+    })
+    // 鼠标松开的时候触发操作
+    dragElement.addEventListener('mouseup', event => {
+        isDrag = false
+        dragElement.style.cursor = 'grab'
+    })
+</script>
+</body>
+</html>
